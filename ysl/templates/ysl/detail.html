@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="VOTE">
+    <meta name="author" content="NULL">
+    <title>VOTE.com</title>
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/freelancer.min.css'%} " rel="stylesheet">
+    <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css'%}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]> <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> <![endif]-->
+</head>
+
+
+<body>
+     <div class="container" id="maincontent" tabindex="-1">
+            <div class="row">
+                <div class="col-lg-16"><img class="img-responsive" src="/static/img/vote.png" alt="">
+                    <div class="intro-text">
+                        <h1><strong> {{ question.question_text }}</strong></h1><br>
+                        <p>Please select the <mark><em>Number</em></mark></p>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+     </div>
+
+                <form action="{% url 'ysl:vote' question.id %}" method="post">
+{% csrf_token %}
+{% for choice in question.choice_set.all %}
+
+                    <div id="success">
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <button type="submit" class="btn  btn-lg"><input type="submit" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id}}" />
+                    <strong><label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label></strong></></button><br />
+                            </div>
+                        </div>
+                    </div>
+
+
+{% endfor %}
+
+</form>
+
+</body>
+</html>
